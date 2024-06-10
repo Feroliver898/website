@@ -67,39 +67,40 @@
         databaseURL: "https://test-67d25-default-rtdb.europe-west1.firebasedatabase.app"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-    // Add login event listener
-    document.getElementById("login-form").addEventListener("submit", function(event) {
-        event.preventDefault();
+        // Add login event listener
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        const username = document.getElementById("login-form").elements["user"].value;
-        const password = document.getElementById("login-form").elements["password"].value;
+            const username = document.getElementById("login-form").elements["user"].value;
+            const password = document.getElementById("login-form").elements["password"].value;
 
-        // Get reference to the user in the database
-        const userRef = ref(database, 'users/' + username);
-console.log("User data from database:", userRef);
-               // Retrieve user data from the database
-        get(userRef).then((snapshot) => {
-            const userData = snapshot.val()
-        console.log("User data from database:", userData);
-            if (userData && userData.password === password) {
-                // Redirect to index.html upon successful login
-                window.location.href = "index.html";
-            } else {
-                // Handle invalid username or password
-                alert("Invalid username or password.");
-            }
-        }).catch((error) => {
-            // Handle database read error
-            alert("An error occurred while logging in.");
+            // Get reference to the user in the database
+            const userRef = ref(database, 'users/' + username);
+
+            // Retrieve user data from the database
+            get(userRef).then((snapshot) => {
+                const userData = snapshot.val();
+                console.log("User data from database:", userData);
+
+                // Check if user data exists and password matches
+                if (userData && userData.password === password) {
+                    // Redirect to index.html upon successful login
+                    window.location.href = "index.html";
+                } else {
+                    // Handle invalid username or password
+                    alert("Invalid username or password.");
+                }
+            }).catch((error) => {
+                // Handle database read error
+                alert("An error occurred while logging in.");
+            });
         });
-    });
 </script>
 
-</script>
 
 
 
