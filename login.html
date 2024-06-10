@@ -41,49 +41,58 @@
         <a href="kontakt.html">Kontakt</a>
     </footer>
 
-    <!-- Firebase configuration -->
-    <script type="module">
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCYGQJVECbawW_HPhtwPXWxh9Wn5txAbvg",
-            authDomain: "test-67d25.firebaseapp.com",
-            projectId: "test-67d25",
-            storageBucket: "test-67d25.appspot.com",
-            messagingSenderId: "1044495235111",
-            appId: "1:1044495235111:web:1a71d64328fa6b0b417602",
-            measurementId: "G-KXL410Y24D"
-        };
+    <!-- Firebase JavaScript SDK -->
+<script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+<!-- Firebase configuration -->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        // Add login event listener
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYGQJVECbawW_HPhtwPXWxh9Wn5txAbvg",
+        authDomain: "test-67d25.firebaseapp.com",
+        projectId: "test-67d25",
+        storageBucket: "test-67d25.appspot.com",
+        messagingSenderId: "1044495235111",
+        appId: "1:1044495235111:web:1a71d64328fa6b0b417602",
+        measurementId: "G-KXL410Y24D"
+    };
 
-            const username = document.getElementById("login-form").elements["user"].value;
-            const password = document.getElementById("login-form").elements["password"].value;
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
 
-            // Get reference to the user in the database
-            const userRef = database.ref("users/" + username);
+    // Add login event listener
+    document.getElementById("login-form").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-            // Retrieve user data from the database
-            userRef.get().then((snapshot) => {
-                const userData = snapshot.val();
+        const username = document.getElementById("login-form").elements["user"].value;
+        const password = document.getElementById("login-form").elements["password"].value;
 
-                if (userData && userData.password === password) {
-                    // Redirect to index.html upon successful login
-                    window.location.href = "index.html";
-                } else {
-                    // Handle invalid username or password
-                    alert("Invalid username or password.");
-                }
-            }).catch((error) => {
-                // Handle database read error
-                alert("An error occurred while logging in.");
-            });
+        // Get reference to the user in the database
+        const userRef = database.ref("users/" + username);
+
+        // Retrieve user data from the database
+        userRef.get().then((snapshot) => {
+            const userData = snapshot.val();
+
+            if (userData && userData.password === password) {
+                // Redirect to index.html upon successful login
+                window.location.href = "index.html";
+            } else {
+                // Handle invalid username or password
+                alert("Invalid username or password.");
+            }
+        }).catch((error) => {
+            // Handle database read error
+            alert("An error occurred while logging in.");
         });
-    </script>
+    });
+</script>
 </body>
 </html>
