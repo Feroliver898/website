@@ -64,7 +64,8 @@
         document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const username = document.getElementById("login-form").elements["username"].value;
+    const username = document.getElementById("login-form").elements["user"].value;
+
     const password = document.getElementById("login-form").elements["password"].value;
 
     // Get reference to the user in the database
