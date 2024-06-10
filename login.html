@@ -80,7 +80,7 @@
 
         // Get reference to the user in the database
         const userRef = ref(database, 'users/' + username);
-
+console.log("User data from database:", userRef);
                // Retrieve user data from the database
         get(userRef).then((snapshot) => {
             const userData = snapshot.val()
