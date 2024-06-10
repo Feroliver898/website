@@ -39,8 +39,8 @@
     </footer>
 
     <!-- Firebase JavaScript SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.6/firebase-database.js"></script>
 
     <!-- Firebase configuration -->
     <script>
@@ -62,30 +62,30 @@
 
         // Add login event listener
         document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
+    event.preventDefault();
 
-            const username = document.getElementById("login-form").elements["username"].value;
-            const password = document.getElementById("login-form").elements["password"].value;
+    const username = document.getElementById("login-form").elements["username"].value;
+    const password = document.getElementById("login-form").elements["password"].value;
 
-            // Get reference to the user in the database
-            const userRef = database.ref("users/" + username);
+    // Get reference to the user in the database
+    const userRef = firebase.database().ref("users/" + username);
 
-            // Retrieve user data from the database
-            userRef.get().then((snapshot) => {
-                const userData = snapshot.val();
+    // Retrieve user data from the database
+    userRef.get().then((snapshot) => {
+        const userData = snapshot.val();
 
-                if (userData && userData.password === password) {
-                    // Redirect to index.html upon successful login
-                    window.location.href = "index.html";
-                } else {
-                    // Handle invalid username or password
-                    alert("Invalid username or password.");
-                }
-            }).catch((error) => {
-                // Handle database read error
-                alert("An error occurred while logging in.");
-            });
-        });
+        if (userData && userData.password === password) {
+            // Redirect to index.html upon successful login
+            window.location.href = "index.html";
+        } else {
+            // Handle invalid username or password
+            alert("Invalid username or password.");
+        }
+    }).catch((error) => {
+        // Handle database read error
+        alert("An error occurred while logging in.");
+    });
+});
     </script>
 </body>
 </html>
