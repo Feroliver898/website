@@ -84,7 +84,7 @@
         // Retrieve user data from the database
         get(userRef).then((snapshot) => {
             const userData = snapshot.val();
-
+        console.log("User data from database:", userData);
             if (userData && userData.password === password) {
                 // Redirect to index.html upon successful login
                 window.location.href = "index.html";
